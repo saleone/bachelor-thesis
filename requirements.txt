@@ -1,0 +1,2 @@
+pyserial==3.0.1
+pyzmq==15.2.0
