@@ -101,6 +101,10 @@ def main():
         print("Arduino Uno was not found. Exiting...")
         return False
 
+    #TODO: Currently we do not have rights to connect to /dev/ttyAMC0 when
+    #      Arduino is connected even when it's found by the find_uno().
+    #      Using chown on the port gives you the rights to communicate.
+    #      Find something that is possible without SU.
     try:
         print("Connecting to port {}".format(uno_port))
         uno = Arduino(uno_port)
@@ -112,6 +116,7 @@ def main():
     last_coil = 0
     while True:
         last_coil = step(uno, (8,9,10,11),active_coil=last_coil, speed=10)
+        save_position("./position.txt", last_coil)
 
 
 if __name__ == "__main__":
