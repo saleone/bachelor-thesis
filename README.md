@@ -1,8 +1,8 @@
-# Diplomski rad
+# Bachelor thesis
 
-Robot sa tri stepena slobode kretanja upravljan preko Kinect senzora i sa tri koracna motora kao aktuatorima.
+Robot with three degrees of freedom controled with Kinect sensor and 3 stepper motors.
 
-## Izvori:
+## Sources:
 * [socket - Low-level networking interface](https://docs.python.org/3/library/socket.html)
 * [Socket Programming HOWTO](https://docs.python.org/3/howto/sockets.html) - Gordon McMillan
 * [ZeroMQ - The Guide](http://zguide.zeromq.org/py:all)
