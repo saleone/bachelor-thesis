@@ -2,7 +2,7 @@
 
 Robot with three degrees of freedom controled with Kinect sensor and 3 stepper motors.
 
-## Sources:
+## Sources
 * [socket - Low-level networking interface](https://docs.python.org/3/library/socket.html)
 * [Socket Programming HOWTO](https://docs.python.org/3/howto/sockets.html) - Gordon McMillan
 * [ZeroMQ - The Guide](http://zguide.zeromq.org/py:all)
@@ -12,4 +12,4 @@ Robot with three degrees of freedom controled with Kinect sensor and 3 stepper m
 * [tino/pyFirmata](https://github.com/tino/pyFirmata)
 
 ## License
-This thesis/project code is currently (I must ask permission from my college to confirm this, no sure yet) licensed under the MIT license. Check the [LICENSE.md](./LICENSE.md) file for more info.
+This thesis/project code is currently (I must ask permission from my college to confirm this, not sure yet) licensed under the MIT license. Check the [LICENSE.md](./LICENSE.md) file for more info.
