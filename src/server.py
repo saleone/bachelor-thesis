@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 
 import time
+import sys
+import os
 
 import serial.tools.list_ports as list_ports
 from pyfirmata import Arduino, util
@@ -19,6 +21,7 @@ def find_uno():
                 print("Arduino Uno found on port {}".format(port[0]))
                 return port[0]
     return False
+
 
 # TODO: Convert to class from which you make instance with board and pins,
 # and later you just call step function
@@ -83,17 +86,35 @@ def step(board, pins, steps=1, active_coil=0, speed=50):
     # We return active coil so we can continue moving from the same place.
     return active_coil
 
+
 def save_position(dbfile, coil):
     try:
         if not isinstance(coil, int):
             print("Coil number must be an integer. Exiting...")
             return False
-        with open(dbfile, w) as db:
-            db.write(coil)
-    except:
-        print("Error occured while saving position. Exiting...")
+        with open(dbfile, "w") as db:
+            db.write(str(coil))
+    except Exception as e:
+        print("Error occured while saving position: \n {}\nExiting...".format(e))
+        sys.exit()
         return False
     return True
+
+
+def read_position(dbfile):
+    try:
+        if not os.path.exists(dbfile):
+            print("Position file does not exist. Exiting...")
+            sys.exit()
+        with open(dbfile, "r") as db:
+            position = int(db.readline())
+            print("Loaded last active coil: {}".format(position))
+            return position
+    except Exception as e:
+        print("Error occured while reading position: \n {}\nExiting...".format(e))
+        sys.exit()
+        return False
+
 
 def main():
     uno_port = find_uno()
@@ -112,12 +133,13 @@ def main():
         print(e)
         print("Could not connect to port. Exiting...")
         return False
-
-    last_coil = 0
+    dbfile = "./position.txt"
+    last_coil = read_position(dbfile)
     while True:
         last_coil = step(uno, (8,9,10,11),active_coil=last_coil, speed=10)
-        save_position("./position.txt", last_coil)
+        save_position(dbfile, last_coil)
 
-
+# TODO: Make tests to check if everything is ok instead of trying to run the code manually and adjusting it.
+#       It's a lot of work but still ...
 if __name__ == "__main__":
     main()

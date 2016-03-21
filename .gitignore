@@ -2,4 +2,5 @@ venv/
 *.pyc
 __**/
 src/.ropeproject/
+src/*.txt
 
