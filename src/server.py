@@ -1,10 +1,8 @@
 #!/usr/bin/env python3
 
-import zmq
 import time
 
 import serial.tools.list_ports as list_ports
-
 from pyfirmata import Arduino, util
 
 
@@ -85,12 +83,23 @@ def step(board, pins, steps=1, active_coil=0, speed=50):
     # We return active coil so we can continue moving from the same place.
     return active_coil
 
+def save_position(dbfile, coil):
+    try:
+        if not isinstance(coil, int):
+            print("Coil number must be an integer. Exiting...")
+            return False
+        with open(dbfile, w) as db:
+            db.write(coil)
+    except:
+        print("Error occured while saving position. Exiting...")
+        return False
+    return True
 
 def main():
     uno_port = find_uno()
     if not uno_port:
         print("Arduino Uno was not found. Exiting...")
-        return 1
+        return False
 
     try:
         print("Connecting to port {}".format(uno_port))
@@ -98,11 +107,12 @@ def main():
     except Exception as e:
         print(e)
         print("Could not connect to port. Exiting...")
-        return 1
+        return False
 
     last_coil = 0
     while True:
         last_coil = step(uno, (8,9,10,11),active_coil=last_coil, speed=10)
+
 
 if __name__ == "__main__":
     main()
