@@ -10,3 +10,6 @@ Robot with three degrees of freedom controled with Kinect sensor and 3 stepper m
 * [Python auto detect Arduino connected serial port](https://arduino-er.blogspot.ba/2015/04/python-auto-detect-arduino-connect.html)
 * [Arduino - Firmata Library](https://arduino.cc/en/Reference/Firmata)
 * [tino/pyFirmata](https://github.com/tino/pyFirmata)
+
+## License
+This thesis/project code is currently (I must ask permission from my college to confirm this, no sure yet) licensed under the MIT license. Check the [LICENSE.md](./LICENSE.md) file for more info.
