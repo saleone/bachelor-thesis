@@ -87,6 +87,21 @@ def step(board, pins, steps=1, active_coil=0, speed=50):
     return active_coil
 
 
+def move_servo(board, pin, angle):
+    """
+    Controls the movement of the servo motor connected to the pin with numbered
+    as 'pin_number'.
+    """
+    if not isinstance(board, Arduino):
+        print("Please connect the Arduino board.")
+        return False
+    if  not isinstance(angle, float):
+        print("Angle value must be float.")
+        return False
+    pin.write(angle)
+    return angle
+
+
 def save_position(dbfile, coil):
     try:
         if not isinstance(coil, int):
@@ -115,8 +130,11 @@ def read_position(dbfile):
         sys.exit()
         return False
 
-
-def main():
+def connect_to_board():
+    """
+    Tries to find the arduino board. If the board is found tries to connect to it with pyfirmata.
+    When connected returns the board object.
+    """
     uno_port = find_uno()
     if not uno_port:
         print("Arduino Uno was not found. Exiting...")
@@ -129,17 +147,51 @@ def main():
     try:
         print("Connecting to port {}".format(uno_port))
         uno = Arduino(uno_port)
+
+        # Use threading so the serial buffer to avoid overflow
+        iterator = util.Iterator(uno)
+        iterator.start()
+        return uno
     except Exception as e:
         print(e)
         print("Could not connect to port. Exiting...")
         return False
+
+
+def main_step():
+    uno = connect_to_board()
+    if not uno:
+        sys.exit()
     dbfile = "./position.txt"
     last_coil = read_position(dbfile)
     while True:
         last_coil = step(uno, (8,9,10,11),active_coil=last_coil, speed=10)
         save_position(dbfile, last_coil)
 
+def main_servo():
+    uno = connect_to_board()
+    if not uno:
+        sys.exit()
+    from tkinter import  Tk, Scale, HORIZONTAL, CENTER
+
+    pin = uno.get_pin("d:12:s:")
+    print(pin.type)
+    def slide_servo(value):
+        move_servo(uno, pin, float(value))
+    main_window = Tk()
+    slider = Scale(main_window,
+            command=slide_servo,
+            length=500,
+            orient=HORIZONTAL,
+            resolution=0.5,
+            to=179,
+            background="#000",
+            troughcolor="#f00")
+    slider.pack(anchor=CENTER)
+    main_window.mainloop()
+
+
 # TODO: Make tests to check if everything is ok instead of trying to run the code manually and adjusting it.
 #       It's a lot of work but still ...
 if __name__ == "__main__":
-    main()
+    main_servo()
