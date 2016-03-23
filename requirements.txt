@@ -1,3 +1,5 @@
-pyFirmata==1.0.3
+autobahn==0.13.0
+pymata-aio==2.11
 pyserial==3.0.1
-pyzmq==15.2.0
+six==1.10.0
+txaio==2.2.2

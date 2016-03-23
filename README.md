@@ -28,6 +28,9 @@ sudo chown [your-username] [port]
 to get temporary access to the port without restarting, but this is not persistent you will have to do it every time you reconnect your board.
 
 
+Besides that you need to upload FirmataPlus to your Arduino. Instructions can be found [here](https://github.com/MrYsLab/pymata-aio/wiki/Uploading-FirmataPlus-to-Arduino)
+
+
 ## Sources
 * [socket - Low-level networking interface](https://docs.python.org/3/library/socket.html)
 * [Socket Programming HOWTO](https://docs.python.org/3/howto/sockets.html) - Gordon McMillan
@@ -36,6 +39,7 @@ to get temporary access to the port without restarting, but this is not persiste
 * [Python auto detect Arduino connected serial port](https://arduino-er.blogspot.ba/2015/04/python-auto-detect-arduino-connect.html)
 * [Arduino - Firmata Library](https://arduino.cc/en/Reference/Firmata)
 * [tino/pyFirmata](https://github.com/tino/pyFirmata)
+* [MrYsLab/pymata-aio wiki](https://github.com/MrYsLab/pymata-aio/wiki)
 
 ## License
-This thesis/project code is currently (I must ask permission from my college to confirm this, not sure yet) licensed under the MIT license. Check the [LICENSE.md](./LICENSE.md) file for more info.
+This thesis/project code is currently (I must ask permission from my college to confirm this, not sure yet) licensed under the MIT license, unless specified otherwise. Check the [LICENSE.md](./LICENSE.md) file for more info.
