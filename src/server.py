@@ -1,12 +1,20 @@
 #!/usr/bin/env python3
 
-import sys, time
+import sys
 
 from pymata_aio.pymata3 import PyMata3
 from pymata_aio.constants import Constants
 
 
 class Actuator:
+    """
+    This class represent the motor used on my robot, it tries to create the same
+    interface for different kind of motors
+
+    :param board instance of pymata_aio.pymata3.PyMata3 class
+    :param pin int or tuple cointaing pin or pins used by actuators to receive signal
+    :param steps_per_rev characteristic of a stepper motor used for angle conversion
+    """
     def __init__(self, board, pin, steps_per_rev = 4096):
         self.position = 0 # tracks the current position of the actuator (angle)
         self.max_angle = None
@@ -122,14 +130,6 @@ class Actuator:
             self.position = self.position +\
                 (direction * step // self.angle_to_step_ratio)
         return True
-
-def move_servo(board, pin, angle):
-    """
-    Controls the movement of the servo motor connected to the pin with numbered
-    as 'pin_number'.
-    """
-    board.analog_write(pin, angle)
-    return angle
 
 
 def main_servo():

@@ -28,7 +28,7 @@ sudo chown [your-username] [port]
 to get temporary access to the port without restarting, but this is not persistent you will have to do it every time you reconnect your board.
 
 
-Besides that you need to upload FirmataPlus to your Arduino. Instructions can be found [here](https://github.com/MrYsLab/pymata-aio/wiki/Uploading-FirmataPlus-to-Arduino)
+Besides that you need to upload FirmataPlus to your Arduino. Instructions can be found [here](https://github.com/MrYsLab/pymata-aio/wiki/Uploading-FirmataPlus-to-Arduino).
 
 
 ## Sources
