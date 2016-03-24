@@ -29,7 +29,7 @@ class Actuator:
         self.board = board
 
         # Constant for the stepper motor
-        self.steps_per_rev = 4096
+        self.steps_per_rev = steps_per_rev
         self.angle_to_step_ratio = self.steps_per_rev // 360
 
 
