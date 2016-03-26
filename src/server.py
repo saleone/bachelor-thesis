@@ -102,6 +102,7 @@ class Actuator:
         :param angle integer
         """
         self.board.analog_write(self.pin, int(angle))
+        self.position = angle
         return True
 
 
@@ -195,4 +196,4 @@ def main_servo_step():
 # TODO: Make tests to check if everything is ok instead of trying to run the code manually and adjusting it.
 #       It's a lot of work but still ...
 if __name__ == "__main__":
-    main_servo_step()
+    main_servo()
