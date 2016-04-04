@@ -38,6 +38,8 @@ class Actuator:
         if isinstance(pin, tuple):
             self.servo = False
             self.pins = pin
+            # make sure we have the starting coil defined
+            self.coil = 0
 
         # Check if the values are right and configure the pins.
         self.__check_values()
