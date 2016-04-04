@@ -85,8 +85,6 @@ class Actuator:
         :param angle integer
         """
         angle = int(angle)
-        #if isinstance(angle, int):
-        #    return False
         if self.servo:
             self.__set_angle_servo(angle)
         else:
@@ -112,11 +110,10 @@ class Actuator:
 
         :param angle integer
         """
-        d_angle = self.position - angle
+        d_angle = self.__find_delta_angle(self, angle)
 
         # For the given change in angle calculate how many steps stepper has to move
         steps = d_angle * self.angle_to_step_ratio
-        #print("Needs to move {} steps or {} degrees".format(steps, d_angle))
         direction = 1
         if steps < 0:
             direction = -1
@@ -131,6 +128,14 @@ class Actuator:
             self.position = self.position +\
                 (direction * step // self.angle_to_step_ratio)
         return True
+
+        def __find_delta_angle(self, angle):
+        """
+        Find the angle we need to move in order to get to the wanted position.
+
+        :param angle integer
+        """
+            return (self.position + angle) % 360
 
 
 def main_servo():
