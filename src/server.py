@@ -119,12 +119,12 @@ class Actuator:
             direction = -1
 
         # We only need positive number of steps when the direction is known
-        steps = abs(steps)
+        steps = abs(steps) + self.coil
 
-        for step in range(steps):
+        for step in range(self.coil, steps):
             # Pins are just sending signal to activate coil. Coils here
             # represent index in the array (tuple) of pins.
-            coil = (step * direction) % 4
+            self.coil = coil = (step * direction) % 4
             self.board.digital_write(self.pins[coil], 1)
             self.board.digital_write(self.pins[coil-direction], 0)
         self.position = self.position +\
