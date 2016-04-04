@@ -30,7 +30,7 @@ class Actuator:
 
         # Constant for the stepper motor
         self.steps_per_rev = steps_per_rev
-        self.angle_to_step_ratio = self.steps_per_rev // 360
+        self.angle_to_step_ratio = self.steps_per_rev / 360
 
 
         # Check are we using servo or stepper motor (we will just use 4 coil per motor).
@@ -113,7 +113,7 @@ class Actuator:
         d_angle = self.__find_delta_angle(self, angle)
 
         # For the given change in angle calculate how many steps stepper has to move
-        steps = d_angle * self.angle_to_step_ratio
+        steps = int(d_angle * self.angle_to_step_ratio)
         direction = 1
         if steps < 0:
             direction = -1
