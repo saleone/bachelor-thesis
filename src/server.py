@@ -110,7 +110,7 @@ class Actuator:
 
         :param angle integer
         """
-        d_angle = self.__find_delta_angle(self, angle)
+        d_angle = self.__find_delta_angle(angle)
 
         # For the given change in angle calculate how many steps stepper has to move
         steps = int(d_angle * self.angle_to_step_ratio)
@@ -118,24 +118,27 @@ class Actuator:
         if steps < 0:
             direction = -1
 
-        for step in range(direction * steps):
+        # We only need positive number of steps when the direction is known
+        steps = abs(steps)
+
+        for step in range(steps):
             # Pins are just sending signal to activate coil. Coils here
             # represent index in the array (tuple) of pins.
-            coil = (step + direction) % 4
+            coil = (step * direction) % 4
             self.board.digital_write(self.pins[coil], 1)
-            #print("Setting coil {} to 1".format(coil))
-            self.board.digital_write(self.pins[coil-1], 0)
-            self.position = self.position +\
-                (direction * step // self.angle_to_step_ratio)
+            self.board.digital_write(self.pins[coil-direction], 0)
+        self.position = self.position +\
+            (direction * step // self.angle_to_step_ratio)
         return True
 
-        def __find_delta_angle(self, angle):
+
+    def __find_delta_angle(self, angle):
         """
         Find the angle we need to move in order to get to the wanted position.
 
         :param angle integer
         """
-            return (self.position + angle) % 360
+        return (self.position + angle) % 360
 
 
 def main_servo():
@@ -201,4 +204,4 @@ def main_servo_step():
 # TODO: Make tests to check if everything is ok instead of trying to run the code manually and adjusting it.
 #       It's a lot of work but still ...
 if __name__ == "__main__":
-    main_servo()
+    main_step()
