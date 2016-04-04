@@ -129,8 +129,7 @@ class Actuator:
             self.coil = coil = (step * direction) % 4
             self.board.digital_write(self.pins[coil], 1)
             self.board.digital_write(self.pins[coil-direction], 0)
-        self.position = self.position +\
-            (direction * step // self.angle_to_step_ratio)
+        self.position = self.position + d_angle
         return True
 
 
