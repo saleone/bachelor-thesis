@@ -30,6 +30,17 @@ to get temporary access to the port without restarting, but this is not persiste
 
 Besides that you need to upload FirmataPlus to your Arduino. Instructions can be found [here](https://github.com/MrYsLab/pymata-aio/wiki/Uploading-FirmataPlus-to-Arduino).
 
+Required Python packages are specified in ```requirements.txt``` file so you can run 
+```bash
+pip install -r requirements.txt
+``` 
+to install them. After that connect your Arduino with Firmata sketch on in and run 
+```bash
+python server.py
+```
+
+**This script required Python version 3.4.3 or higher as described in [pymata-aio wiki](https://github.com/MrYsLab/pymata-aio/wiki/Pre-Installation-Requirements).**
+
 
 ## Sources
 * [socket - Low-level networking interface](https://docs.python.org/3/library/socket.html)
