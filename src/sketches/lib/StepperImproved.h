@@ -1,31 +1,34 @@
-#fndef StepperImproved_h
+#ifndef StepperImproved_h
 #define StepperImproved_h
 
 class StepperImproved {
     public:
 
         // Constructor for 4 coil steppers.
-        StepperImproved(int steps_number, int pin1, int pin2, int pin3, int pin4);  
+        StepperImproved(int steps_number, short pin1, short pin2, short pin3, short pin4);  
         
         // Set Stepper position.
-        void write(int angle); 
+        void write(short angle); 
         
         // Defines movement speed in degrees per second.
         void setSpeed(double speed);
 
     private:
+
+        // Number of steps per full revolution.
+        int rev_steps;
         
         // Current angle position of the motor.
-        int position;         
+        short position;         
 
         // Pins for stepping.
-        int pin1;
-        int pin2;
-        int pin3;
-        int pin4;
+        short pin1;
+        short pin2;
+        short pin3;
+        short pin4;
 
         // Number of pins.
-        int pinCount;
+        short pinCount;
 
         // Steps per degree ratio.
         double ratio;
@@ -38,6 +41,9 @@ class StepperImproved {
 
         // Last time we moved a step.
         unsigned long last_step_time;
+
+        // Coil which was activated last.
+        short last_coil;
 }
 
 #endif
