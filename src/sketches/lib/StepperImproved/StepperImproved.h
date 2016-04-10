@@ -3,7 +3,6 @@
 
 class StepperImproved {
     public:
-
         // Constructor for 4 coil steppers.
         StepperImproved(int steps_number, short pin1, short pin2, short pin3, short pin4);  
         
@@ -14,6 +13,8 @@ class StepperImproved {
         void setSpeed(double speed);
 
     private:
+        // Method steps the motor for given number of steps
+        void step(int steps);
 
         // Number of steps per full revolution.
         int rev_steps;
@@ -44,6 +45,6 @@ class StepperImproved {
 
         // Coil which was activated last.
         short last_coil;
-}
+};
 
 #endif

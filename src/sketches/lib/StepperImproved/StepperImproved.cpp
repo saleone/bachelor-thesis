@@ -4,7 +4,7 @@
 /*
  * Constructor for 4 wire stepper motor.
  */
-StepperImproved::StepperImproved (short steps_number, short pin1, short pin2, short pin3, short pin4) {
+StepperImproved::StepperImproved (int steps_number, short pin1, short pin2, short pin3, short pin4) {
     this->rev_steps = steps_number; // Number of steps for one full revolution.
     this->position  = 0;            // Current angle position of Stepper.
 
@@ -50,7 +50,7 @@ void StepperImproved::write(short angle) {
     }
     
     // Steps to move.
-    int steps = angleDelta *  ratio;
+    int steps = (int) (angleDelta * ratio);
     step(steps);
 
     // Update the position.
@@ -60,7 +60,7 @@ void StepperImproved::write(short angle) {
 /*
  * Generates pulses to step the motor.
  */
-void Stepper::step(int steps) {
+void StepperImproved::step(int steps) {
     // Move while we still have steps to move.
     while (steps > 0) { 
         unsigned long now = micros();
