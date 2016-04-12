@@ -2,6 +2,8 @@
 
 Robot with three degrees of freedom controled with Kinect sensor and 3 stepper motors.
 
+![Robot rendering.](http://i.imgur.com/m0iDD0F.jpg)
+
 ## Running the script
 To make sure that the script can talk to arduino over serial connection we need to add user to the group which owns the serial port.
 On Linux this is mostly the 'dialout' group but for some users/distros (like me/Arch linux) it's different.
