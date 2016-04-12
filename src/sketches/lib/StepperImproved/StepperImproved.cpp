@@ -1,10 +1,15 @@
 #include "Arduino.h"
 #include "StepperImproved.h"
 
+#define DEBUG true
+
 /*
  * Constructor for 4 wire stepper motor.
  */
 StepperImproved::StepperImproved (int steps_number, short pin1, short pin2, short pin3, short pin4) {
+    if (DEBUG) {
+        Serial.begin(115200);
+    }
     this->rev_steps = steps_number; // Number of steps for one full revolution.
     this->position  = 0;            // Current angle position of Stepper.
 
@@ -13,6 +18,19 @@ StepperImproved::StepperImproved (int steps_number, short pin1, short pin2, shor
     this->pin2 = pin2;
     this->pin3 = pin3;
     this->pin4 = pin4;
+
+    if (DEBUG) {
+        Serial.println("Connected pins are: ");
+        Serial.print(this->pin1);
+        Serial.print(" ");
+        Serial.print(this->pin2);
+        Serial.print(" ");
+        Serial.print(this->pin3);
+        Serial.print(" ");
+        Serial.println(this->pin4);
+        Serial.print("Steps passed: ");
+        Serial.println(steps_number);
+    } 
 
     // Set stepping pins into output mode.
     pinMode(this->pin1, OUTPUT);
@@ -37,7 +55,9 @@ StepperImproved::StepperImproved (int steps_number, short pin1, short pin2, shor
  * Moves the stepper to specified angle position.
  */
 void StepperImproved::write(short angle) {
-    short angleDelta = this->position - angle;
+    short angleDelta = angle - this->position;
+    Serial.print("angleDelta: ");
+    Serial.println(angleDelta);
     if (angleDelta > 0 && abs(angleDelta) <= 180) {
         // Step the motor in clockwise direction.
         this->cw = true;
@@ -50,7 +70,10 @@ void StepperImproved::write(short angle) {
     }
     
     // Steps to move.
-    int steps = (int) (angleDelta * ratio);
+    double steps = angleDelta*ratio;
+    int steps = (int) abs(steps);
+    Serial.print("steps: ");
+    Serial.println(steps);
     step(steps);
 
     // Update the position.
@@ -114,6 +137,12 @@ void StepperImproved::step(int steps) {
             this->last_step_time = now;
         }
     }
-    
+}
+
+/*
+ * Set the speed at which stepper motor moves.
+ */
+void StepperImproved::setSpeed(double speed) {
+    this->delay = 1/speed*1000000;
 }
 
