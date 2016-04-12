@@ -41,7 +41,7 @@ to install them. After that connect your Arduino with Firmata sketch on in and r
 python server.py
 ```
 
-**This script required Python version 3.4.3 or higher as described in [pymata-aio wiki](https://github.com/MrYsLab/pymata-aio/wiki/Pre-Installation-Requirements).**
+**This script requires Python version 3.4.3 or higher as described in [pymata-aio wiki](https://github.com/MrYsLab/pymata-aio/wiki/Pre-Installation-Requirements).**
 
 
 ## Sources
