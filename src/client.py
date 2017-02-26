@@ -8,7 +8,9 @@ HOST, PORT = 'localhost', 7777
 
 LIMIT = 0.5
 
-posx, posy, posz = 0.0, 0.0, 0.0
+posx = random.uniform(-50.00, 50.00)
+posy = random.uniform(-50.00, 50.00)
+posz = random.uniform(-50.00, 50.00)
 
 def change_pos(*values):
     range_delta = 0.1
