@@ -3,4 +3,5 @@ venv/
 __**/
 src/.ropeproject/
 src/*.txt
+.vscode/
 

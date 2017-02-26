@@ -8,9 +8,6 @@ PORT = 7777
 
 class ConnectionHandler(BaseRequestHandler):
 
-    client = []
-
-
     def handle(self):
         self.data = self.request.recv(128).strip()
         print('{} wrote:\n{}'.format(self.client_address[0], self.data))
