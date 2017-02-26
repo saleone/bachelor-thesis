@@ -43,9 +43,6 @@ def get_angles(x, y, z):
 
     return result
 
-def main():
-    from server import main
-    main()
-
 if __name__ == '__main__':
+    from server import main
     main()
