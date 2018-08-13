@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# client.py
+# actuator.py
 #
 # Copyright 2019 Saša Savić <sasa@sasa-savic.com>
 #
@@ -24,19 +24,33 @@
 # SPDX-License-Identifier: MIT
 
 
-import socket
-import time
-import math
-import random
 import sys
 
-HOST, PORT = 'localhost', 7777
+from pymata_aio.constants import Constants
+from pymata_aio.pymata3 import PyMata3
 
-if len(sys.argv) > 1:
-    PORT = int(sys.argv[1])
+from typing import Dict, Any
 
-while True:
-    data = input('coords pls: ')
-    with socket.socket() as sock:
-        sock.connect((HOST, PORT))
-        sock.sendall(bytes(data, 'utf-8'))
+
+class Actuator:
+    def __init__(
+            self, 
+            board: PyMata3, 
+            pin: int, 
+            min_angle: int = 0, 
+            max_angle: int = 180, 
+            offset: int = 0) -> None:
+        self.min_angle: int = min_angle
+        self.max_angle: int = max_angle
+        self.offset: int = offset
+        self.pin: int = pin
+        self.board: PyMata3 = board
+        self.board.servo_config(self.pin)
+
+    def set_angle(self, angle: int, dry_run: bool = False) -> bool:
+        if not self.min_angle <= angle <= self.max_angle:
+            print('unreachable angle {} for {}'.format(angle, self.pin))
+            return False
+        if not dry_run: 
+            self.board.analog_write(self.pin, int(angle) - self.offset)
+        return True
